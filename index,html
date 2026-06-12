@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo da Agrofloresta!</title>
+    <style>
+        /* --- ESTILOS GERAIS (CSS) --- */
+        :root {
+            --verde-vivo: #4CAF50;
+            --verde-escuro: #2E7D32;
+            --terra: #8D6E63;
+            --sol: #FFD54F;
+            --ceu: #E3F2FD;
+            --texto: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--ceu);
+            color: var(--texto);
+            overflow-x: hidden;
+        }
+
+        /* Topo Encantado */
+        header {
+            background: linear-gradient(180deg, #64B5F6, var(--ceu));
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            color: var(--verde-escuro);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitulo {
+            font-size: 1.2rem;
+            color: #1565C0;
+            font-weight: bold;
+        }
+
+        /* Painel Interativo do Jogo */
+        .container-jogo {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .cenario {
+            height: 300px;
+            background: linear-gradient(to bottom, #A1C4FD 0%, #C2E9FB 100%);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 30px solid var(--terra);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 20px;
+            padding-bottom: 10px;
+        }
+
+        /* Elementos da Floresta */
+        .elemento {
+            font-size: 4rem;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            user-select: none;
+            bottom: 0;
+            position: relative;
+        }
+
+        .elemento:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .botoes-acao {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: var(--verde-vivo);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            background-color: var(--verde-escuro);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Caixa de Mensagem Dinâmica */
+        .caixa-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #F1F8E9;
+            border-left: 5px solid var(--verde-vivo);
+            border-radius: 4px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Seções de Conteúdo (Fácil Leitura) */
+        .conteudo {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card-info {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: var(--verde-escuro);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        li::before {
+            content: "🌱";
+            position: absolute;
+            left: 0;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--verde-escuro);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+
+        /* Animação de Nuvem */
+        .nuvem {
+            position: absolute;
+            font-size: 3rem;
+            color: white;
+            opacity: 0.8;
+            top: 20px;
+            animation: moverNuvem 20s linear infinite;
+        }
+
+        @keyframes moverNuvem {
+            from { left: -100px; }
+            to { left: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOPO -->
+    <header>
+        <div class="nuvem">☁️</div>
+        <h1>Mundo da Agrofloresta! 🌳🍌🐝</h1>
+        <p class="subtitulo">Onde a comida cresce junto com a floresta</p>
+    </header>
+
+    <!-- JOGO INTERATIVO (Para crianças e jovens) -->
+    <section class="container-jogo">
+        <h3>Simulador de Agrofloresta</h3>
+        <p style="color: #666; margin-bottom: 15px;">Clique nos botões para plantar e ver a mágica acontecer!</p>
+        
+        <div class="cenario" id="cenario">
+            <!-- Os elementos plantados vão aparecer aqui via JS -->
+            <span class="elemento" onclick="explicar('terra')">🟫</span>
+        </div>
+
+        <div class="botoes-acao">
+            <button onclick="plantar('árvore')">🌳 Plantar Árvore Alta</button>
+            <button onclick="plantar('banana')">🍌 Plantar Bananeira</button>
+            <button onclick="plantar('hortaliça')">🥬 Plantar Hortaliças</button>
+            <button onclick="plantar('animal')">🐝 Chamar Polinizadores</button>
+            <button onclick="limparCenario()" style="background-color: #e53935;">Colher Tudo (Resetar)</button>
+        </div>
+
+        <div class="caixa-info" id="caixa-info">
+            Clique em qualquer botão acima para começar a sua plantação sustentável!
+        </div>
+    </section>
+
+    <!-- CONTEÚDO EDUCATIVO (Para jovens e adultos) -->
+    <section class="conteudo">
+        
+        <div class="card-info">
+            <h2>🤔 O que é Agrofloresta?</h2>
+            <p>Agrofloresta é uma forma de plantar alimentos imitando a natureza. Em vez de derrubar as árvores para fazer uma plantação comum (monocultura), nós plantamos árvores, frutas e vegetais todos juntos, no mesmo lugar!</p>
+        </div>
+
+        <div class="card-info">
+            <h2>🚀 Os 3 Superpoderes da Agrofloresta</h2>
+            <ul>
+                <li><strong>Protege o Solo:</strong> As raízes seguram a terra e as folhas caídas viram adubo natural.</li>
+                <li><strong>Mais Biodiversidade:</strong> Atrai pássaros, abelhas e pequenos animais que ajudam o planeta.</li>
+                <li><strong>Comida Saudável:</strong> Produz alimentos variados e sem veneno (agrotóxicos) o ano inteiro.</li>
+            </ul>
+        </div>
+
+        <div class="card-info">
+            <h2>layers Como funciona o trabalho em camadas (estratos)?</h2>
+            <p>Cada planta tem o seu tamanho e precisa de uma quantidade de sol diferente. Elas não competem, elas se ajudam!</p>
+            <br>
+            <p><strong>1. Estrato Alto (Emergentes):</strong> Árvores gigantes que protegem as menores do sol forte (Ex: Castanheiras).</p>
+            <p><strong>2. Estrato Médio:</strong> Árvores de frutas que gostam de um pouco de sombra (Ex: Bananeiras e Cacaueiros).</p>
+            <p><strong>3. Estrato Baixo:</strong> Plantas rasteiras que cobrem o chão (Ex: Alface, Cenoura e Abóbora).</p>
+        </div>
+
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>Feito com ❤️ para um futuro mais verde e sustentável. Vamos plantar juntos?</p>
+    </footer>
+
+    <!-- LOGICA DE INTERAÇÃO (JAVASCRIPT) -->
+    <script>
+        // Banco de frases explicativas
+        const explicacoes = {
+            'árvore': "As árvores altas puxam água do fundo da terra e dão sombra para as plantas menores!",
+            'banana': "As bananeiras acumulam muita água no seu tronco e ajudam a manter a floresta úmida!",
+            'hortaliça': "As hortaliças crescem protegidas pela sombra e aproveitam o adubo que cai das árvores!",
+            'animal': "As abelhas e insetos ajudam a polinizar as flores, gerando muito mais frutos!",
+            'terra': "Este é o solo vivo! Com a agrofloresta, ele fica sempre rico em nutrientes."
+        };
+
+        const cenario = document.getElementById('cenario');
+        const caixaInfo = document.getElementById('caixa-info');
+
+        // Função para plantar novos elementos na tela
+        function plantar(tipo) {
+            let emoji = '';
+            
+            switch(tipo) {
+                case 'árvore': emoji = '🌳'; break;
+                case 'banana': emoji = '🍌'; break;
+                case 'hortaliça': emoji = '🥬'; break;
+                case 'animal': emoji = '🐝'; break;
+            }
+
+            // Cria o elemento HTML dinamicamente
+            const novoElemento = document.createElement('span');
+            novoElemento.className = 'elemento';
+            novoElemento.innerText = emoji;
+            
+            // Adiciona o evento de clique direto no emoji gerado
+            novoElemento.onclick = function() {
+                explicar(tipo);
+            };
+
+            // Adiciona ao cenário
+            cenario.appendChild(novoElemento);
+
+            // Atualiza o texto informativo
